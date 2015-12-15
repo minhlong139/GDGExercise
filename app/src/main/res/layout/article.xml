@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/article"/>
-</LinearLayout>
+        android:layout_height="220dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/article"
+        android:id="@+id/iv_image" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/iv_image"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#9c001580"
+            android:text=""/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:padding="3dp"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:text="Cách làm canh sườn nấu sấu đậm đà, khó quên"/>
+    </RelativeLayout>
+
+</RelativeLayout>
