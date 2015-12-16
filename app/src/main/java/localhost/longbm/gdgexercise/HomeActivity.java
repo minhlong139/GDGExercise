@@ -1,11 +1,14 @@
 package localhost.longbm.gdgexercise;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,6 +29,7 @@ import localhost.longbm.gdgexercise.model.ArticleConverter;
 
 public class HomeActivity extends AppCompatActivity {
     public static final String DATA_JSON_FILE_NAME = "data.json";
+    public static final String EXTRA_STORY_CLICKED = "extra-story-clicked";
 
     private ArticleDataStore dataStore;
 
@@ -60,11 +64,21 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    public void displayArticles(List<Article> articles) {
+    public void displayArticles(final List<Article> articles) {
         ListView listView = (ListView) findViewById(R.id.lv_items);
         ArticleAdapter itemAdapter = new ArticleAdapter(this, R.layout.article);
         itemAdapter.addAll(articles);
         listView.setAdapter(itemAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Article article = articles.get(position);
+                Intent gotoScreen2Intent = new Intent(HomeActivity.this, DetailActivity.class);
+                gotoScreen2Intent.putExtra(DetailActivity.HOME_TO_DETAIL_KEY, article);
+                startActivityForResult(gotoScreen2Intent, 1);
+            }
+        });
     }
 
     private static class ArticleAdapter extends ArrayAdapter<Article> {

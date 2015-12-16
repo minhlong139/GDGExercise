@@ -1,9 +1,11 @@
 package localhost.longbm.gdgexercise.model;
 
+import java.io.Serializable;
+
 /**
  * Created by longbm on 12/16/15.
  */
-public class Article {
+public class Article implements Serializable {
     private String id;
     private String title;
     private String image;
