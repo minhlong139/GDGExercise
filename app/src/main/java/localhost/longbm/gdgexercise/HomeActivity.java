@@ -1,34 +1,70 @@
 package localhost.longbm.gdgexercise;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.URL;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import localhost.longbm.gdgexercise.datastore.ArticleDataStore;
+import localhost.longbm.gdgexercise.datastore.FileBasedArticleDataStore;
 import localhost.longbm.gdgexercise.model.Article;
+import localhost.longbm.gdgexercise.model.ArticleConverter;
 
 public class HomeActivity extends AppCompatActivity {
+    public static final String DATA_JSON_FILE_NAME = "data.json";
+
+    private ArticleDataStore dataStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        createList();
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Article.class, new ArticleConverter());
+        Gson gson = gsonBuilder.create();
+        InputStream is = null;
+        try {
+            is = getAssets().open(DATA_JSON_FILE_NAME);
+            dataStore = new FileBasedArticleDataStore(gson, is);
+            dataStore.getPostList(new ArticleDataStore.OnArticleRetrievedListener() {
+                @Override
+                public void onArticleRetrieved(List<Article> articles, Exception ex) {
+                    displayArticles(articles);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
-    protected void createList() {
-
+    public void displayArticles(List<Article> articles) {
+        ListView listView = (ListView) findViewById(R.id.lv_items);
+        ArticleAdapter itemAdapter = new ArticleAdapter(this, R.layout.article);
+        itemAdapter.addAll(articles);
+        listView.setAdapter(itemAdapter);
     }
 
     private static class ArticleAdapter extends ArrayAdapter<Article> {
@@ -49,14 +85,7 @@ public class HomeActivity extends AppCompatActivity {
             tvTitle.setText(article.getTitle());
 
             ImageView imageView = (ImageView) convertView.findViewById(R.id.iv_image);
-            try {
-                URL url = new URL(article.getImage());
-                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                imageView.setImageBitmap(bmp);
-            } catch (Exception ex) {
-                int imageResource = parent.getResources().getIdentifier("@drawable/artichle", null, null);
-                imageView.setImageResource(imageResource);
-            }
+            Picasso.with(getContext()).load(article.getImage()).error(R.drawable.article).into(imageView);
 
             return convertView;
         }

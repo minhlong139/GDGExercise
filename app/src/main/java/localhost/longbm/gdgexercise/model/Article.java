@@ -11,15 +11,6 @@ public class Article {
     private String author;
     private String created;
 
-    public Article(String id, String title, String image, String description, String author, String created) {
-        this.id = id;
-        this.title = title;
-        this.image = image;
-        this.description = description;
-        this.author = author;
-        this.created = created;
-    }
-
     public String getId() {
         return id;
     }
