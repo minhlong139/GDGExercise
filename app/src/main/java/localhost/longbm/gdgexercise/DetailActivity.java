@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,9 +28,8 @@ public class DetailActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.tv_heading);
         textView.setText(article.getTitle());
 
-        TextView description = (TextView) findViewById(R.id.tv_description);
-        URLImageParser p = new URLImageParser(description, this);
-        Spanned htmlSpan = Html.fromHtml(article.getDescription(), p, null);
-        description.setText(htmlSpan);
+        WebView webview = (WebView)this.findViewById(R.id.wv_description);
+        webview.getSettings().setJavaScriptEnabled(false);
+        webview.loadDataWithBaseURL("", article.getDescription(), "text/html", "UTF-8", "");
     }
 }

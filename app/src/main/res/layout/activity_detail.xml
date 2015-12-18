@@ -28,16 +28,10 @@
                 android:textColor="#000000"
                 android:textSize="22dp"
                 android:text="Hướng dẫn cách làm sườn nướng BBQ vô cùng hấp dẫn"/>
-            <TextView
-                android:id="@+id/tv_description"
-                android:textColor="#000000"
+            <WebView
+                android:id="@+id/wv_description"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:textSize="18dp"
-                android:text="Phasellus vitae quam nec quam blandit ornare. Nulla pharetra velit vitae ornare sagittis. Nullam aliquam sagittis ante. Phasellus in rutrum odio, eu lacinia mi. Nullam mollis orci magna, non congue tortor bibendum eu. Ut at urna felis. Nullam fermentum justo sed urna venenatis, a scelerisque orci rhoncus. Aenean felis erat, tristique quis magna suscipit, molestie rutrum justo. Curabitur mollis, elit quis eleifend mollis, erat justo blandit libero, eu placerat massa leo id lacus. Sed ante augue, consequat vel lacus id, consectetur luctus eros.
-
-In tempor semper euismod. Morbi quis sodales odio. Nulla faucibus pharetra diam feugiat mattis. Ut et leo iaculis, rutrum augue at, auctor nulla. Phasellus ornare libero ac dictum venenatis. Suspendisse orci purus, lobortis non risus vel, congue sodales ante. Quisque eleifend eros a imperdiet feugiat. Sed suscipit, quam ut lacinia suscipit, nibh lectus fermentum quam, eget aliquet diam mi eu nibh. Suspendisse sed quam et est consequat tincidunt. Nullam nisi tellus, feugiat id porttitor eu, scelerisque a nibh."/>
+                android:layout_height="match_parent"></WebView>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

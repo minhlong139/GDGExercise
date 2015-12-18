@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
                 Article article = articles.get(position);
                 Intent gotoScreen2Intent = new Intent(HomeActivity.this, DetailActivity.class);
                 gotoScreen2Intent.putExtra(DetailActivity.HOME_TO_DETAIL_KEY, article);
-                startActivityForResult(gotoScreen2Intent, 1);
+                startActivity(gotoScreen2Intent);
             }
         });
     }
